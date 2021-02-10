@@ -1,2 +1,3 @@
-psycopg2
-psaw
+requests
+python-dotenv
+mysql-connector-python
