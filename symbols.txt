@@ -9824,4 +9824,3 @@ ZXZZT|NASDAQ TEST STOCK
 ZYME|Zymeworks Inc. Common Shares
 ZYNE|Zynerba Pharmaceuticals, Inc. - Common Stock
 ZYXI|Zynex, Inc. - Common Stock
-|

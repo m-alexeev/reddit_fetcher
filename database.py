@@ -30,3 +30,35 @@ class Database:
 
     def getConnection(self):
         return self.connection
+
+    def clearDB(self):
+        tables = ['pennystocks', 'general']
+        for table in tables:
+            query = "DELETE FROM " + table
+            cursor = self.connection.cursor()
+            cursor.execute(query)
+            self.connection.commit()
+
+
+    def insert(self, data):
+        table = data['subreddit']
+
+
+        values = data['stocks']
+        vals = []
+        for val in values:
+            vals.append((val['stock'], val['upvotes'], val['like_ratio'], val["num_comments"]) )
+
+        insert = "INSERT INTO "
+        if table == "pennystocks":
+            insert += table
+        else: 
+            insert += "general"
+        
+        query = insert + "( symbol, likes, like_ratio, num_comments) VALUES (%s ,%s, %s ,%s)" 
+        
+        cursor = self.connection.cursor()
+        cursor.executemany(query, vals)
+        self.connection.commit()
+
+
