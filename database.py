@@ -47,7 +47,7 @@ class Database:
         values = data['stocks']
         vals = []
         for val in values:
-            vals.append((val['stock'], val['upvotes'], val['like_ratio'], val["num_comments"]) )
+            vals.append((val['stock'], val['upvotes'], val['like_ratio'], val["num_comments"],val["date_posted"]) )
 
         insert = "INSERT INTO "
         if table == "pennystocks":
@@ -55,7 +55,7 @@ class Database:
         else: 
             insert += "general"
         
-        query = insert + "( symbol, likes, like_ratio, num_comments) VALUES (%s ,%s, %s ,%s)" 
+        query = insert + "( symbol, likes, like_ratio, num_comments, date_posted) VALUES (%s ,%s, %s ,%s, %s)" 
         
         cursor = self.connection.cursor()
         cursor.executemany(query, vals)

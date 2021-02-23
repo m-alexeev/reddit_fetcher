@@ -23,6 +23,7 @@ def scrape(subreddit, limit, headers):
     
     start = time.time()
     posts = requests.get(url, headers = headers).json()["data"]["children"]
+
     end = time.time()
 
     regex = r"\b[$]*[A-Z]{2,5}\b"
@@ -48,7 +49,7 @@ def scrape(subreddit, limit, headers):
 
         if len(stocks) > 0:
             for stock in stocks:
-                post_data = {"stock": None, "upvotes": likes, "like_ratio":ratio, "num_comments": data["num_comments"]}
+                post_data = {"stock": None, "upvotes": likes, "like_ratio":ratio, "num_comments": data["num_comments"], "date_posted":date_posted}
                 post_data["stock"] = stock
                 post_data["upvotes"] = math.floor(likes / len(stocks))
                 mentioned_stocks["stocks"].append(post_data)
@@ -63,7 +64,7 @@ def main():
 
     # init and clear db
     db = Database()
-    db.clearDB()
+    # db.clearDB()
 
     subreddits = ["wallstreetbets", "pennystocks", "stocks"]
     headers = auth.getHeaders()
