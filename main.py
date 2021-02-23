@@ -33,8 +33,11 @@ def scrape(subreddit, limit, headers):
         data = post['data']
         date_posted = datetime.fromtimestamp(data['created'])
         
-        if (abs((date_posted - DAY).days)) > 2:
+        if (abs((date_posted - DAY).days)) > 1:
             continue
+
+
+        date_uploaded = datetime.now()
 
         likes = data['ups'] 
         ratio = data['upvote_ratio']       
@@ -49,7 +52,7 @@ def scrape(subreddit, limit, headers):
 
         if len(stocks) > 0:
             for stock in stocks:
-                post_data = {"stock": None, "upvotes": likes, "like_ratio":ratio, "num_comments": data["num_comments"], "date_posted":date_posted}
+                post_data = {"stock": None, "upvotes": likes, "like_ratio":ratio, "num_comments": data["num_comments"], "date_posted":date_uploaded}
                 post_data["stock"] = stock
                 post_data["upvotes"] = math.floor(likes / len(stocks))
                 mentioned_stocks["stocks"].append(post_data)
